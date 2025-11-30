@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card"; // Removido CardTitle
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { toast } from "sonner"; // Using sonner for toasts
 
@@ -22,9 +22,11 @@ const Index = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark p-4">
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold mb-2">
-            Bem-vindo à raspadinha da caixa
-          </CardTitle>
+          <img
+            src="/RASPA.webp"
+            alt="Bem-vindo à raspadinha da caixa"
+            className="w-full h-auto max-w-xs sm:max-w-sm md:max-w-md mx-auto mb-4"
+          />
           <CardDescription className="text-md text-gray-600">
             Insira seu CPF para verificar suas rodadas gratuitas.
           </CardDescription>
