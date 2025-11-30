@@ -23,7 +23,7 @@ const Index = () => {
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold mb-2">
-            Bem-vindo ao Jogo da Raspadinha!
+            Bem-vindo à raspadinha da caixa
           </CardTitle>
           <CardDescription className="text-md text-gray-600">
             Insira seu CPF para verificar suas rodadas gratuitas.
