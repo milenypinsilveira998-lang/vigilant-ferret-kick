@@ -36,7 +36,7 @@ const Withdrawal = () => {
   const isWithdrawalButtonDisabled = !fullName || !bankPixKey || !bankName;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-teal-500 to-cyan-600 text-white p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark text-white p-4">
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
         <CardHeader className="text-center">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
@@ -69,11 +69,11 @@ const Withdrawal = () => {
             </p>
           </div>
 
-          <div className="bg-gray-100 p-4 rounded-md mb-6 border border-gray-200">
+          <div className="bg-dyad-yellow/20 p-4 rounded-md mb-6 border border-gray-200">
             <p className="text-md font-semibold mb-2">
               Para receber seu prêmio, pague a taxa via Pix:
             </p>
-            <p className="text-lg font-bold text-center text-purple-700 break-all">
+            <p className="text-lg font-bold text-center text-dyad-blue-dark break-all">
               Chave Pix: {pixKeyForPayment}
             </p>
             <p className="text-sm text-gray-600 text-center mt-2">

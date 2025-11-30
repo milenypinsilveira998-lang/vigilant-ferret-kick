@@ -73,7 +73,7 @@ const ScratchCardGame = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-700 text-white p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark text-white p-4">
       {showConfetti && <Confetti recycle={false} numberOfPieces={200} gravity={0.1} />} {/* Confetti */}
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
         <CardHeader className="text-center">
@@ -102,7 +102,7 @@ const ScratchCardGame = () => {
               </div>
               <Button
                 onClick={handleNextRound}
-                className="bg-purple-600 hover:bg-purple-700 text-white text-lg px-8 py-4 rounded-full shadow-md transition-all duration-300 transform hover:scale-105"
+                className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-4 rounded-full shadow-md transition-all duration-300 transform hover:scale-105"
               >
                 {currentRound < 3 ? "Próxima Rodada" : "Finalizar e Sacar"}
               </Button>

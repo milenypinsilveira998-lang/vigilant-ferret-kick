@@ -62,6 +62,10 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Novas cores personalizadas
+        "dyad-blue": "#00A0DF",
+        "dyad-blue-dark": "#0077A8", // Uma tonalidade mais escura para gradientes
+        "dyad-yellow": "#FFCC00",
       },
       borderRadius: {
         lg: "var(--radius)",

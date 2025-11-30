@@ -19,7 +19,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark p-4">
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold mb-2">

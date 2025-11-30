@@ -14,7 +14,7 @@ const Loading = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark text-white p-4">
       <Loader2 className="h-16 w-16 animate-spin text-white mb-6" />
       <h1 className="text-3xl md:text-4xl font-bold mb-3 text-center">
         Analisando seu CPF...

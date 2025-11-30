@@ -67,7 +67,7 @@ const ScratchGrid: React.FC<ScratchGridProps> = ({ onComplete, gridSize = 3, cel
     <div
       ref={gridRef}
       className={cn(
-        "grid grid-cols-3 gap-2 p-4 border-4 border-yellow-400 rounded-lg touch-none",
+        "grid grid-cols-3 gap-2 p-4 border-4 border-dyad-yellow rounded-lg touch-none",
         "w-full max-w-xs md:max-w-md"
       )}
       onMouseLeave={handleInteractionEnd}
@@ -82,7 +82,7 @@ const ScratchGrid: React.FC<ScratchGridProps> = ({ onComplete, gridSize = 3, cel
           data-cell-index={index}
           className={cn(
             "relative w-20 h-20 md:w-24 md:h-24 rounded-md flex items-center justify-center text-gray-700 text-xl font-bold cursor-pointer select-none",
-            scratchedCells[index] ? "bg-gray-100" : "bg-gradient-to-br from-yellow-300 to-orange-400"
+            scratchedCells[index] ? "bg-gray-100" : "bg-gradient-to-br from-dyad-yellow to-orange-400"
           )}
           onMouseDown={() => handleInteractionStart(index)}
           onTouchStart={() => handleInteractionStart(index)}

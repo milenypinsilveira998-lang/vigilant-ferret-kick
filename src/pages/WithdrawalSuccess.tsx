@@ -26,7 +26,7 @@ const WithdrawalSuccess = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-500 to-teal-600 text-white p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark text-white p-4">
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg text-center">
         <CardHeader>
           <CheckCircle className="h-20 w-20 text-green-500 mx-auto mb-4" />

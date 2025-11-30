@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } => "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Gift } from "lucide-react";
 
@@ -11,7 +11,7 @@ const FreeRounds = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 text-white p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark text-white p-4">
       <Gift className="h-20 w-20 text-white mb-6" />
       <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
         Parabéns!
