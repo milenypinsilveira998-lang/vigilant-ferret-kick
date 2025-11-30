@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { XCircle, DollarSign } from "lucide-react";
 import ScratchGrid from "@/components/ScratchGrid";
 import { toast } from "sonner";
+import Confetti from "react-confetti"; // Importando o Confetti
 
 const ScratchCardGame = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const ScratchCardGame = () => {
   const currentRound = parseInt(round || "1");
   const [revealed, setRevealed] = useState(false);
   const [currentRoundPrize, setCurrentRoundPrize] = useState<number>(0);
+  const [showConfetti, setShowConfetti] = useState(false); // Estado para controlar o confetti
 
   const totalPrizeFromState = (location.state as { totalPrize: number })?.totalPrize || 0;
 
@@ -39,6 +41,7 @@ const ScratchCardGame = () => {
   useEffect(() => {
     setRevealed(false);
     setCurrentRoundPrize(0);
+    setShowConfetti(false); // Reseta o confetti ao mudar de rodada
   }, [currentRound]);
 
   const handleScratchComplete = () => {
@@ -48,6 +51,8 @@ const ScratchCardGame = () => {
 
     if (sumOfPrizesInGrid > 0) {
       toast.success(`Parabéns! Você ganhou R$${sumOfPrizesInGrid.toFixed(2).replace(".", ",")}`);
+      setShowConfetti(true); // Ativa o confetti se houver prêmio
+      setTimeout(() => setShowConfetti(false), 5000); // Desativa o confetti após 5 segundos
     } else {
       toast.info("Nenhum prêmio nesta rodada. Tente a próxima!");
     }
@@ -69,6 +74,7 @@ const ScratchCardGame = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-700 text-white p-4">
+      {showConfetti && <Confetti recycle={false} numberOfPieces={200} gravity={0.1} />} {/* Confetti */}
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold">
