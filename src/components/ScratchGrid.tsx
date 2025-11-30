@@ -2,14 +2,15 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Check, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 interface ScratchGridProps {
   onComplete: () => void;
   gridSize?: number; // Default to 3 for a 3x3 grid
+  cellPrizes: number[]; // Array of prizes for each cell
 }
 
-const ScratchGrid: React.FC<ScratchGridProps> = ({ onComplete, gridSize = 3 }) => {
+const ScratchGrid: React.FC<ScratchGridProps> = ({ onComplete, gridSize = 3, cellPrizes }) => {
   const totalCells = gridSize * gridSize;
   const [scratchedCells, setScratchedCells] = useState<boolean[]>(
     new Array(totalCells).fill(false)
@@ -87,7 +88,7 @@ const ScratchGrid: React.FC<ScratchGridProps> = ({ onComplete, gridSize = 3 }) =
           onTouchStart={() => handleInteractionStart(index)}
         >
           {scratchedCells[index] ? (
-            <Check className="h-10 w-10 text-green-500" />
+            <span className="text-green-600">R${cellPrizes[index]?.toFixed(2).replace(".", ",")}</span>
           ) : (
             <Sparkles className="h-10 w-10 text-white" />
           )}

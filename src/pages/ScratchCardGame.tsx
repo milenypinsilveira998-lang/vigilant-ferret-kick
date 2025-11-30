@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { XCircle, DollarSign } from "lucide-react";
-import ScratchGrid from "@/components/ScratchGrid"; // Importando o novo componente
-
-const prizes = [0, 10, 140]; // Prêmios para a rodada 1, 2, 3
+import ScratchGrid from "@/components/ScratchGrid";
+import { toast } from "sonner";
 
 const ScratchCardGame = () => {
   const navigate = useNavigate();
@@ -15,25 +14,47 @@ const ScratchCardGame = () => {
   const location = useLocation();
   const currentRound = parseInt(round || "1");
   const [revealed, setRevealed] = useState(false);
-  const [currentPrize, setCurrentPrize] = useState<number | null>(null);
+  const [currentRoundPrize, setCurrentRoundPrize] = useState<number>(0);
 
-  // Obtém o prêmio total das rodadas anteriores, padrão para 0 se não disponível
   const totalPrizeFromState = (location.state as { totalPrize: number })?.totalPrize || 0;
 
-  // Reseta o estado de revelado e o prêmio atual quando a rodada muda
+  const cellPrizes = useMemo(() => {
+    const gridCells = 9;
+    const prizesArray = new Array(gridCells).fill(0);
+    let prizeForThisRound = 0;
+
+    if (currentRound === 2) {
+      prizeForThisRound = 10;
+    } else if (currentRound === 3) {
+      prizeForThisRound = 140;
+    }
+
+    if (prizeForThisRound > 0) {
+      const randomCellIndex = Math.floor(Math.random() * gridCells);
+      prizesArray[randomCellIndex] = prizeForThisRound;
+    }
+    return prizesArray;
+  }, [currentRound]);
+
   useEffect(() => {
     setRevealed(false);
-    setCurrentPrize(null);
+    setCurrentRoundPrize(0);
   }, [currentRound]);
 
   const handleScratchComplete = () => {
-    const prize = prizes[currentRound - 1];
-    setCurrentPrize(prize);
+    const sumOfPrizesInGrid = cellPrizes.reduce((sum, p) => sum + p, 0);
+    setCurrentRoundPrize(sumOfPrizesInGrid);
     setRevealed(true);
+
+    if (sumOfPrizesInGrid > 0) {
+      toast.success(`Parabéns! Você ganhou R$${sumOfPrizesInGrid.toFixed(2).replace(".", ",")}`);
+    } else {
+      toast.info("Nenhum prêmio nesta rodada. Tente a próxima!");
+    }
   };
 
   const handleNextRound = () => {
-    const newTotalPrize = totalPrizeFromState + (currentPrize || 0);
+    const newTotalPrize = totalPrizeFromState + currentRoundPrize;
     if (currentRound < 3) {
       navigate(`/scratch-card/${currentRound + 1}`, { state: { totalPrize: newTotalPrize } });
     } else {
@@ -41,8 +62,7 @@ const ScratchCardGame = () => {
     }
   };
 
-  const getPrizeIcon = (prize: number | null) => {
-    if (prize === null) return null;
+  const getPrizeIcon = (prize: number) => {
     if (prize > 0) return <DollarSign className="h-12 w-12 text-green-500" />;
     return <XCircle className="h-12 w-12 text-red-500" />;
   };
@@ -61,16 +81,16 @@ const ScratchCardGame = () => {
               <p className="text-xl mb-6 text-center">
                 Passe o dedo (ou mouse) para raspar e descobrir seu prêmio!
               </p>
-              <ScratchGrid key={currentRound} onComplete={handleScratchComplete} />
+              <ScratchGrid key={currentRound} onComplete={handleScratchComplete} cellPrizes={cellPrizes} />
             </>
           ) : (
             <>
               <div className="mb-6 flex flex-col items-center">
-                {getPrizeIcon(currentPrize)}
+                {getPrizeIcon(currentRoundPrize)}
                 <p className="text-2xl font-semibold mt-4">
                   Você ganhou:{" "}
                   <span className="text-green-600 font-bold">
-                    R${currentPrize?.toFixed(2).replace(".", ",")}
+                    R${currentRoundPrize.toFixed(2).replace(".", ",")}
                   </span>
                 </p>
               </div>
