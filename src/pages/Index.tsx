@@ -21,13 +21,13 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark p-4">
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
-        <CardHeader className="text-center">
+        <CardHeader className="text-center p-0"> {/* Removido padding padrão do CardHeader */}
           <img
             src="/RASPA.webp"
             alt="Bem-vindo à raspadinha da caixa"
-            className="w-full h-auto mx-auto mb-4"
+            className="w-full h-auto mx-auto rounded-t-lg" {/* Adicionado rounded-t-lg */}
           />
-          <CardDescription className="text-md text-gray-600">
+          <CardDescription className="text-md text-gray-600 p-4"> {/* Adicionado padding de volta para a descrição */}
             Insira seu CPF para verificar suas rodadas gratuitas.
           </CardDescription>
         </CardHeader>
