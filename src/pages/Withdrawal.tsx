@@ -23,9 +23,9 @@ const Withdrawal = () => {
       return;
     }
     // Aqui você poderia adicionar a lógica para processar o saque
-    // Por enquanto, apenas navegaremos de volta para o início
+    // Por enquanto, apenas navegaremos para a página de sucesso
     toast.success("Informações de saque enviadas! Seu prêmio será processado após o pagamento da taxa.");
-    navigate("/");
+    navigate("/withdrawal-success"); // Navega para a nova página de sucesso
   };
 
   return (
@@ -111,7 +111,7 @@ const Withdrawal = () => {
             onClick={handleConfirmWithdrawal}
             className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-md shadow-md transition-all duration-300 transform hover:scale-105"
           >
-            Confirmar Saque e Voltar ao Início
+            Confirmar Saque
           </Button>
         </CardContent>
       </Card>

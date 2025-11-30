@@ -9,6 +9,7 @@ import Loading from "./pages/Loading";
 import FreeRounds from "./pages/FreeRounds";
 import ScratchCardGame from "./pages/ScratchCardGame";
 import Withdrawal from "./pages/Withdrawal";
+import WithdrawalSuccess from "./pages/WithdrawalSuccess"; // Importando a nova página
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/free-rounds" element={<FreeRounds />} />
           <Route path="/scratch-card/:round" element={<ScratchCardGame />} />
           <Route path="/withdrawal" element={<Withdrawal />} />
+          <Route path="/withdrawal-success" element={<WithdrawalSuccess />} /> {/* Nova rota */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
