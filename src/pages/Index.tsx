@@ -45,6 +45,9 @@ const Index = () => {
             >
               Analisar CPF
             </Button>
+            <p className="text-center text-sm text-gray-500 mt-4">
+              *Apenas uma jogada por CPF.
+            </p>
           </div>
         </CardContent>
       </Card>
