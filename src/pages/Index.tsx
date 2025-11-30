@@ -1,10 +1,12 @@
+"use client";
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card"; // Removido CardTitle
+import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import { toast } from "sonner"; // Using sonner for toasts
+import { toast } from "sonner";
 
 const Index = () => {
   const [cpf, setCpf] = useState("");
@@ -21,13 +23,13 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-dyad-blue to-dyad-blue-dark p-4">
       <Card className="w-full max-w-md bg-white text-gray-900 shadow-xl rounded-lg">
-        <CardHeader className="text-center p-0"> {/* Removido padding padrão do CardHeader */}
+        <CardHeader className="text-center p-0">
           <img
             src="/RASPA.webp"
             alt="Bem-vindo à raspadinha da caixa"
-            className="w-full h-auto mx-auto rounded-t-lg" {/* Adicionado rounded-t-lg */}
+            className="w-full h-auto mx-auto rounded-t-lg"
           />
-          <CardDescription className="text-md text-gray-600 p-4"> {/* Adicionado padding de volta para a descrição */}
+          <CardDescription className="text-md text-gray-600 p-4">
             Insira seu CPF para verificar suas rodadas gratuitas.
           </CardDescription>
         </CardHeader>
