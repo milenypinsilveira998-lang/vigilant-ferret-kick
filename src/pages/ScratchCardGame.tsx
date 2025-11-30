@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, XCircle, DollarSign } from "lucide-react";
+import { XCircle, DollarSign } from "lucide-react";
+import ScratchGrid from "@/components/ScratchGrid"; // Importando o novo componente
 
-const prizes = [0, 10, 140]; // Prizes for round 1, 2, 3
+const prizes = [0, 10, 140]; // Prêmios para a rodada 1, 2, 3
 
 const ScratchCardGame = () => {
   const navigate = useNavigate();
@@ -14,10 +17,16 @@ const ScratchCardGame = () => {
   const [revealed, setRevealed] = useState(false);
   const [currentPrize, setCurrentPrize] = useState<number | null>(null);
 
-  // Get total prize from previous rounds, default to 0 if not available
+  // Obtém o prêmio total das rodadas anteriores, padrão para 0 se não disponível
   const totalPrizeFromState = (location.state as { totalPrize: number })?.totalPrize || 0;
 
-  const handleReveal = () => {
+  // Reseta o estado de revelado e o prêmio atual quando a rodada muda
+  useEffect(() => {
+    setRevealed(false);
+    setCurrentPrize(null);
+  }, [currentRound]);
+
+  const handleScratchComplete = () => {
     const prize = prizes[currentRound - 1];
     setCurrentPrize(prize);
     setRevealed(true);
@@ -30,8 +39,6 @@ const ScratchCardGame = () => {
     } else {
       navigate("/withdrawal", { state: { totalPrize: newTotalPrize } });
     }
-    setRevealed(false);
-    setCurrentPrize(null);
   };
 
   const getPrizeIcon = (prize: number | null) => {
@@ -51,16 +58,10 @@ const ScratchCardGame = () => {
         <CardContent className="flex flex-col items-center justify-center p-6">
           {!revealed ? (
             <>
-              <Sparkles className="h-24 w-24 text-yellow-500 mb-6 animate-pulse" />
               <p className="text-xl mb-6 text-center">
-                Clique para raspar e descobrir seu prêmio!
+                Passe o dedo (ou mouse) para raspar e descobrir seu prêmio!
               </p>
-              <Button
-                onClick={handleReveal}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-4 rounded-full shadow-md transition-all duration-300 transform hover:scale-105"
-              >
-                Revelar Prêmio
-              </Button>
+              <ScratchGrid key={currentRound} onComplete={handleScratchComplete} />
             </>
           ) : (
             <>
