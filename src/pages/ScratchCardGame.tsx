@@ -23,17 +23,14 @@ const ScratchCardGame = () => {
   const cellPrizes = useMemo(() => {
     const gridCells = 9;
     const prizesArray = new Array(gridCells).fill(0);
-    let prizeForThisRound = 0;
 
     if (currentRound === 2) {
-      prizeForThisRound = 10;
-    } else if (currentRound === 3) {
-      prizeForThisRound = 140;
-    }
-
-    if (prizeForThisRound > 0) {
+      const prizeForThisRound = 10;
       const randomCellIndex = Math.floor(Math.random() * gridCells);
       prizesArray[randomCellIndex] = prizeForThisRound;
+    } else if (currentRound === 3) {
+      prizesArray[0] = 40; // Quadrante superior esquerdo
+      prizesArray[8] = 100; // Quadrante inferior direito
     }
     return prizesArray;
   }, [currentRound]);
