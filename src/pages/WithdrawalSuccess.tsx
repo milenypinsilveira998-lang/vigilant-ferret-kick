@@ -1,16 +1,28 @@
 "use client";
 
 import React from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Share2 } from "lucide-react"; // Import Share2 icon
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { toast } from "sonner"; // For toast messages
 
 const WithdrawalSuccess = () => {
-  const navigate = useNavigate();
-
-  const handleGoHome = () => {
-    navigate("/");
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Ganhei na Raspadinha!",
+          text: "Acabei de ganhar um prêmio na raspadinha! Tente a sua sorte também!",
+          url: window.location.origin, // Compartilha a URL base do aplicativo
+        });
+        toast.success("Link compartilhado com sucesso!");
+      } catch (error) {
+        console.error("Erro ao compartilhar:", error);
+        toast.error("Não foi possível compartilhar o link.");
+      }
+    } else {
+      toast.info("Seu navegador não suporta a função de compartilhamento nativo.");
+    }
   };
 
   return (
@@ -29,11 +41,14 @@ const WithdrawalSuccess = () => {
           <p className="text-lg text-gray-800 mb-6">
             Em até 30 minutos, o valor estará na sua conta.
           </p>
+          <p className="text-md text-gray-600 mt-4 mb-6">
+            Só é possível fazer a raspadinha uma vez por CPF.
+          </p>
           <Button
-            onClick={handleGoHome}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-md shadow-md transition-all duration-300 transform hover:scale-105"
+            onClick={handleShare}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-md shadow-md transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
           >
-            Voltar ao Início
+            <Share2 className="h-5 w-5" /> Compartilhar Raspadinha
           </Button>
         </CardContent>
       </Card>

