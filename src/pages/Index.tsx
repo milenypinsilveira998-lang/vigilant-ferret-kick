@@ -25,7 +25,7 @@ const Index = () => {
           <img
             src="/RASPA.webp"
             alt="Bem-vindo à raspadinha da caixa"
-            className="w-full h-auto max-w-xs sm:max-w-sm md:max-w-md mx-auto mb-4"
+            className="w-full h-auto mx-auto mb-4"
           />
           <CardDescription className="text-md text-gray-600">
             Insira seu CPF para verificar suas rodadas gratuitas.
