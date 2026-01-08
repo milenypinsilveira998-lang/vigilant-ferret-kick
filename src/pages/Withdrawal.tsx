@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Copy } from "lucide-react"; // Importando o ícone Copy
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -11,16 +13,26 @@ const Withdrawal = () => {
   const navigate = useNavigate();
   const totalPrize = (location.state as { totalPrize: number })?.totalPrize || 0;
   const withdrawalFee = totalPrize * 0.10; // 10% of the total prize
-  const pixKeyForPayment = "11.111.111/0001-11"; // Placeholder Pix key for payment
+  const pixKeyForPayment = "fe2ae351-89ad-40b7-9fa4-755f21f15b63"; // Nova chave Pix
 
   const [fullName, setFullName] = useState("");
   const [bankPixKey, setBankPixKey] = useState("");
   const [bankName, setBankName] = useState("");
-  const [paymentConfirmed, setPaymentConfirmed] = useState(false); // Novo estado para confirmação de pagamento
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
 
   const handleConfirmPayment = () => {
     setPaymentConfirmed(true);
     toast.info("Agora preencha seus dados para receber o Pix.");
+  };
+
+  const handleCopyPixKey = async () => {
+    try {
+      await navigator.clipboard.writeText(pixKeyForPayment);
+      toast.success("Chave Pix copiada para a área de transferência!");
+    } catch (err) {
+      console.error("Falha ao copiar a chave Pix:", err);
+      toast.error("Não foi possível copiar a chave Pix. Por favor, copie manualmente.");
+    }
   };
 
   const handleConfirmWithdrawal = () => {
@@ -73,9 +85,19 @@ const Withdrawal = () => {
             <p className="text-md font-semibold mb-2">
               Para receber seu prêmio, pague a taxa via Pix:
             </p>
-            <p className="text-lg font-bold text-center text-dyad-blue-dark break-all">
-              Chave Pix: {pixKeyForPayment}
-            </p>
+            <div className="flex items-center justify-center gap-2 mt-2 flex-wrap">
+              <p className="text-lg font-bold text-center text-dyad-blue-dark break-all">
+                Chave Pix: {pixKeyForPayment}
+              </p>
+              <Button
+                onClick={handleCopyPixKey}
+                variant="outline"
+                size="sm"
+                className="bg-white text-dyad-blue-dark hover:bg-gray-100 border-dyad-blue-dark"
+              >
+                <Copy className="h-4 w-4 mr-2" /> Copiar
+              </Button>
+            </div>
             <p className="text-sm text-gray-600 text-center mt-2">
               (Copie e cole no seu aplicativo bancário)
             </p>
