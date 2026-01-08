@@ -14,6 +14,14 @@ const Index = () => {
 
   const handleAnalyzeCpf = () => {
     if (cpf.length === 11 && /^\d+$/.test(cpf)) {
+      // Rastrear evento InitiateCheckout
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'InitiateCheckout', {
+          content_name: 'Análise de CPF',
+          currency: 'BRL',
+          value: 0 // Não há valor monetário nesta etapa
+        });
+      }
       navigate("/loading");
     } else {
       toast.error("Por favor, insira um CPF válido (apenas números, 11 dígitos).");
