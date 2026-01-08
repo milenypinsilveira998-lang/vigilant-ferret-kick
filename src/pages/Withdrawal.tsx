@@ -21,16 +21,6 @@ const Withdrawal = () => {
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
 
   const handleConfirmPayment = () => {
-    const netPrize = totalPrize - withdrawalFee;
-    // Rastrear evento Purchase
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Purchase', {
-        value: netPrize,
-        currency: 'BRL',
-        content_name: 'Saque de Prêmio',
-        num_items: 1 // Assumindo um item de prêmio
-      });
-    }
     setPaymentConfirmed(true);
     toast.info("Agora preencha seus dados para receber o Pix.");
   };
